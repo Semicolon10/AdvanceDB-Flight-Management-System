@@ -1,3 +1,18 @@
+///this fomat will help u
+
+CREATE TABLE<Table name>(
+	field name<data type & size>
+		  <data type & size>
+		  <data type & size>
+		  <data type & size>
+		  <data type & size>
+	CONSTRAINT pk_ PRIMARY KEY()
+	CONSTRAINT fk_ FOREIGN KEY() REFERENCES()
+)
+
+//check the constraint names and put sutable data tipe with sutable data sizes
+
+
 CREATE TABLE Airline_Contact_No(
 	AirlineCode<data type & size>
 	ContactNo<data type & size>
