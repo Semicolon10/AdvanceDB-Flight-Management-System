@@ -1,0 +1,66 @@
+CREATE TABLE Airline_Contact_No(
+	AirlineCode<data type & size>
+	ContactNo<data type & size>
+	CONSTRAINT pk_AirlineCode_ContactNo PRIMARY KEY(AirlineCode,ContactNo)
+	CONSTRAINT fk_AirlineCode FOREIGN KEY (AirlineCode) REFERENCES Airline(AirlineCode)	
+)
+
+
+
+CREATE TABLE Aircrew_Contact_No(
+	StaffID<data type & size>
+	ContactNo<data type & size>
+	CONSTRAINT pk_StaffID_ContactNo PRIMARY KEY(StaffID,ContactNo)
+	CONSTRAINT fk_StaffID FOREIGN KEY (StaffID) REFERENCES Aircrew(StaffID)
+)
+
+CREATE TABLE Passenger_Contact_No(
+	PassportNo<data type & size>
+	ContactNo<data type & size>
+	CONSTRAINT pk_PassportNo_ContactNo PRIMARY KEY(PassportNo,ContactNo)
+	CONSTRAINT fk_PassportNo FOREIGN KEY (PassportNo) REFERENCES Passenger(PassportNo)
+)
+
+CREATE TABLE Landing(
+	FlightNo<data type & size>
+	AirportName<data type & size>
+	CONSTRAINT pk_FlightNo_AirportName PRIMARY KEY(FlightNo,AirportName)
+	CONSTRAINT fk_FlightNo FOREIGN KEY (FlightNo) REFERENCES Flight(FlightNo)
+)
+
+
+<data type & size>
+
+
+CREATE TABLE Take_Off(
+	FlightNo<data type & size>
+	AirportName<data type & size>
+	CONSTRAINT pk_FlightNo_AirportName PRIMARY KEY(FlightNo,AirportName)
+	CONSTRAINT fk_FlightNo FOREIGN KEY(FlightNo) REFERENCES Flight(FlightNo)
+)///check this pk and fk pk and fk constraint names are same as landing table
+
+CREATE TABLE Shedule_Days(
+	FlightNo<data type & size>
+	FlightDate<data type & size>
+	EstimatedArrivaltime<data type & size>
+	EstimatedDepatureTime<data type & size>
+	CONSTRAINT pk_FlightNo_FlightDate PRIMARY KEY(FlightNo,FlightDate)
+	CONSTRAINT fk_ FOREIGN KEY(FlightNo) REFERENCES Flight(FlightNo)
+)
+
+
+///this fomat will help u
+
+CREATE TABLE<Table name>(
+	field name<data type & size>
+		  <data type & size>
+		  <data type & size>
+		  <data type & size>
+		  <data type & size>
+	CONSTRAINT pk_ PRIMARY KEY()
+	CONSTRAINT fk_ FOREIGN KEY() REFERENCES()
+)
+
+
+	
+	
