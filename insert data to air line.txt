@@ -1,0 +1,51 @@
+CREATE TABLE(
+	<data type & size>
+	<data type & size>
+	<data type & size>
+	<data type & size>
+	<data type & size>
+	CONSTRAINT pk_ PRIMARY KEY()
+	CONSTRAINT fk_ FOREIGN KEY() REFERENCES()
+)
+
+
+
+1)//fill the owner field
+INSERT INTO Airline
+VALUES('UL','Sri lankan Airlines','###',17,'Airline Centre Bandaranaike International Airport, Katunayake, Sri Lanka',114,'flysmiles@srilankan.com','https://www.srilankan.com/','1998',)
+
+2)
+INSERT INTO Airline
+VALUES('C6L','Singapore Airlines','Temasek Holdings',119,'Airline House,25 Airline Road,Singapore 819829',64,'us_reservations@singaporeair.com.sg','https://www.singaporeair.com','1972')
+
+3)
+INSERT INTO Airline
+VALUES('C7','Helitours','Discover Serendipity',16,'Sir Chithampalam Gardiner Mawatha, Colombo 2. (Opposite Inland Revenue Department) ',13,'helitourstickets@slaf.gov.lk','www.helitours.lk','2014')
+
+4)
+INSERT INTO Airline
+VALUES('EK','Emirates',' The Emirates Group',254,'Garhoud, Dubai, United Arab Emirates',180,'ekuae@emirates.com','https://www.emirates.com','1985')
+
+5)
+INSERT INTO Airline
+VALUES('JAI','Jet Airways','Tailwinds Private Limited',124,'Jet Airways (India) Limited,Siroya Centre,Sahar Airport Road,Andheri (East),Mumbai - 400099,India.',67,'guestrelations@jetairways.com','https://www.jetairways.com','1993')
+
+6)//check the email
+INSERT INTO Airline
+VALUES('QR','Qatar Airways','Government of Qatar',220,'Qatar Airways Tower 1, next to Al Manna Building, Airport Road Doha, Qatar',150,'qrmedia@qatarairways.com','https://www.qatarairways.com','1994')
+
+7)
+INSERT INTO Airline
+VALUES('MH','Malaysia Airlines','Malaysia Aviation Group',80,'Kuala Lumpur International Airport, Sepang, Malaysia',61,'mhlbag@malaysiaairlines.com','http://www.malaysiaairlines.com','1972')
+
+8)
+INSERT INTO Airline
+VALUES('WY','Oman Air','Government of Oman',53,'Muscat International Airport,Muscat, Oman',50,'wymctstn@omanair.com','https://www.omanair.com','1993')
+
+9)
+INSERT INTO Airline
+VALUES('AI','Air India','Air India Limited',118,'Airlines House, Delhi, India',94,'call.del@airindia.in','http://www.airindia.in','1946')
+
+10)
+INSERT INTO Airline
+VALUES('GF','Gulf Air','Government of Bahrain',34,'Muharraq, Bahrain',50,' ffp@gulfair.com','http://www.gulfair.com',1950)
