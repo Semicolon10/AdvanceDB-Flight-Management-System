@@ -241,5 +241,23 @@ constraint pk_StaffID_ContactNo_Attendant primary key(StaffID,ContactNo),
 constraint fk_StaffID foreign key(StaffID) references FlightAttendant(StaffId)
 );
 
-
+create table ProvideServices(
+AirlineCode varchar(25),
+AirportCode varchar(25),
+AirlineName varchar(50),
+AirlineOwner varchar(50),
+FleetSize int,
+Address varchar(100),
+NoOfDestinations int,
+HeadOfficeEmail varchar(50),
+WebsiteURL varchar(100),
+CommensementYear int,
+AirportName varchar(50),
+City varchar(25),
+Country varchar(50),
+Established_Year int,
+constraint pk_AirlineCode_AirportCode primary key(AirlineCode,AirportCode),
+constraint fk_AirportCode foreign key(AirportCode) references Airport(AirportCode),
+constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode)
+);
  
