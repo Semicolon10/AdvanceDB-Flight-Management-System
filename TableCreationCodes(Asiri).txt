@@ -1,4 +1,6 @@
 create database FlightManagementSystem;
+use FlightManagementSystem;
+
 create table Airport(
 AirportCode varchar(25),
 AirportName varchar(50),
@@ -30,8 +32,8 @@ MaxNoOfSeats int,
 AirlineCode varchar(25),
 FlightNo varchar(25),
 constraint pk_AircraftCode primary key(AircraftCode),
-constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_AirlineCode_Aircraft foreign key(AirlineCode) references Airline(AirlineCode),
+constraint fk_FlightNo_Aircraft foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table Flight(
@@ -40,7 +42,7 @@ FlightPath varchar(100),
 AirlineCode varchar(25),
 FlightType varchar(20),
 constraint pk_FlightNo primary key(FLightNo),
-constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode)
+constraint fk_AirlineCode_Flight foreign key(AirlineCode) references Airline(AirlineCode)
 );
 
 create table Reservation(
@@ -82,8 +84,8 @@ AircrewCheckInTime date,
 AircraftCode varchar(25),
 FlightNo varchar(25),
 constraint pk_LegNoArrival primary key(LegNo),
-constraint fk_AircraftCode foreign key(AircraftCode) references Aircraft(AircraftCode),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_AircraftCode_Arrival foreign key(AircraftCode) references Aircraft(AircraftCode),
+constraint fk_FlightNo_Arrival foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table Departure(
@@ -98,8 +100,8 @@ AircrewCheckInTime date,
 AircraftCode varchar(25),
 FlightNo varchar(25),
 constraint pk_LegNoDeparture primary key(LegNo),
-constraint fk_AircraftCode foreign key(AircraftCode) references Aircraft(AircraftCode),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_AircraftCode_Departure foreign key(AircraftCode) references Aircraft(AircraftCode),
+constraint fk_FlightNo_Departure foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table Delayed(
@@ -111,8 +113,8 @@ AircrewCheckInTime date,
 AircraftCode varchar(25),
 FlightNo varchar(25),
 constraint pk_LegNoDelayed primary key(LegNo),
-constraint fk_AircraftCode foreign key(AircraftCode) references Aircraft(AircraftCode),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_AircraftCode_Delayed foreign key(AircraftCode) references Aircraft(AircraftCode),
+constraint fk_FlightNo_Delayed foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table Canceled(
@@ -124,8 +126,8 @@ AircrewCheckInTime date,
 AircraftCode varchar(25),
 FlightNo varchar(25),
 constraint pk_LegNoCanceled primary key(LegNo),
-constraint fk_AircraftCode foreign key(AircraftCode) references Aircraft(AircraftCode),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_AircraftCode_Canceled foreign key(AircraftCode) references Aircraft(AircraftCode),
+constraint fk_FlightNo_Canceled foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table SpecialRequirements(
@@ -143,21 +145,21 @@ create table AirlineContactNo(
 AirlineCode varchar(25),
 ContactNo int,
 constraint pk_AirlineCode_ContactNo primary key(AirlineCode,ContactNo),
-constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode)
+constraint fk_AirlineCode_AirlineContactNo foreign key(AirlineCode) references Airline(AirlineCode)
 );
 
 create table Landing(
 FlightNo varchar(25),
 AirportName varchar(50),
 constraint pk_FlightNo_AirportName_Landing primary key(FlightNo,AirportName),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_FlightNo_Landing foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table TakeOff(
 FlightNo varchar(25),
 AirportName varchar(50),
 constraint pk_FlightNo_AirportName_TakeOff primary key(FlightNo,AirportName),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_FlightNo_TakeOff foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table ScheduleDays(
@@ -166,14 +168,14 @@ FlightDate date,
 EstimatedArrivalTime date,
 EstimatedDepartureTime date,
 constraint pk_FlightNo_FlightDate primary key(FlightNo,FlightDate),
-constraint fk_FlightNo foreign key(FlightNo) references Flight(FlightNo)
+constraint fk_FlightNo_ScheduleDays foreign key(FlightNo) references Flight(FlightNo)
 );
 
 create table PassengerContactNo(
 PassportNo varchar(50),
 ContactNo int,
 constraint pk_PassportNo_ContactNo primary key(PassportNo,ContactNo),
-constraint fk_PassportNo foreign key(PassportNo) references Passenger(PassportNo)
+constraint fk_PassportNo_PassengerContactNo foreign key(PassportNo) references Passenger(PassportNo)
 );
 
 create table Pilot(
@@ -191,11 +193,11 @@ TotalFlyingHours int,
 LegNo varchar(10),
 AirlineCode varchar(25),
 constraint pk_StaffID primary key(StaffID),
-constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode),
-constraint fk_LegNo_1 foreign key(LegNo) references Arrival(LegNo),
-constraint fk_LegNo_2 foreign key(LegNo) references Departure(LegNo),
-constraint fk_LegNo_3 foreign key(LegNo) references Delayed(LegNo),
-constraint fk_LegNo_4 foreign key(LegNo) references Canceled(LegNo)
+constraint fk_AirlineCode_Pilot foreign key(AirlineCode) references Airline(AirlineCode),
+constraint fk_LegNo_1_Pilot foreign key(LegNo) references Arrival(LegNo),
+constraint fk_LegNo_2_Pilot foreign key(LegNo) references Departure(LegNo),
+constraint fk_LegNo_3_Pilot foreign key(LegNo) references Delayed(LegNo),
+constraint fk_LegNo_4_Pilot foreign key(LegNo) references Canceled(LegNo)
 );
 
 create table PilotFlownAircrafts(
@@ -203,7 +205,7 @@ StaffID varchar(25),
 AircraftModel varchar(25),
 FlyingHours int,
 constraint pk_StaffID_AircraftModel primary key(StaffID,AircraftModel),
-constraint fk_StaffID foreign key(StaffID) references Pilot(StaffID)
+constraint fk_StaffID_PilotFlownAircrafts foreign key(StaffID) references Pilot(StaffID)
 );
 
 create table FlightAttendant(
@@ -221,24 +223,24 @@ TotalFlyingHours int,
 LegNo varchar(10),
 AirlineCode varchar(25),
 constraint pk_StaffID_Attendant primary key(StaffID),
-constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode),
-constraint fk_LegNo_1 foreign key(LegNo) references Arrival(LegNo),
-constraint fk_LegNo_2 foreign key(LegNo) references Departure(LegNo),
-constraint fk_LegNo_3 foreign key(LegNo) references Delayed(LegNo),
-constraint fk_LegNo_4 foreign key(LegNo) references Canceled(LegNo)
+constraint fk_AirlineCode_FlightAttendant foreign key(AirlineCode) references Airline(AirlineCode),
+constraint fk_LegNo_1_FlightAttendant foreign key(LegNo) references Arrival(LegNo),
+constraint fk_LegNo_2_FlightAttendant foreign key(LegNo) references Departure(LegNo),
+constraint fk_LegNo_3_FlightAttendant foreign key(LegNo) references Delayed(LegNo),
+constraint fk_LegNo_4_FlightAttendant foreign key(LegNo) references Canceled(LegNo)
 );
 create table PilotContactNo(
 StaffID varchar(25),
 ContactNo varchar(10),
 constraint pk_StaffID_ContactNo primary key(StaffID,ContactNo),
-constraint fk_StaffID foreign key(StaffID) references Pilot(StaffId)
+constraint fk_StaffID_PilotContactNo foreign key(StaffID) references Pilot(StaffId)
 );
 
 create table FlightAttendantContactNo(
 StaffID varchar(25),
 ContactNo varchar(10),
 constraint pk_StaffID_ContactNo_Attendant primary key(StaffID,ContactNo),
-constraint fk_StaffID foreign key(StaffID) references FlightAttendant(StaffId)
+constraint fk_StaffID_FlightAttendantContactNo foreign key(StaffID) references FlightAttendant(StaffId)
 );
 
 create table ProvideServices(
@@ -257,7 +259,7 @@ City varchar(25),
 Country varchar(50),
 Established_Year int,
 constraint pk_AirlineCode_AirportCode primary key(AirlineCode,AirportCode),
-constraint fk_AirportCode foreign key(AirportCode) references Airport(AirportCode),
-constraint fk_AirlineCode foreign key(AirlineCode) references Airline(AirlineCode)
+constraint fk_AirportCode_ProvideServices foreign key(AirportCode) references Airport(AirportCode),
+constraint fk_AirlineCode_ProvideServices foreign key(AirlineCode) references Airline(AirlineCode)
 );
  
