@@ -1,0 +1,11 @@
+I need below screenshots for compete the report.
+
+1)finalize table creation code (only table which updated)
+2)sample records(only updated tables)1 table should have 10 records
+3)few insert into queries(one Query from one table)
+4)data dictionary(all tables)
+5)triggers queries
+6)views queries 
+7)user define functions
+8)stored procedures
+9)finalise database diagram
