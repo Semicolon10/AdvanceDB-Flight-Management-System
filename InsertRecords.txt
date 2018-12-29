@@ -1,0 +1,88 @@
+1)INSERT INTO SheduleDays
+   VALUES('WY4587','2018-05-04','','')
+2)INSERT INTO SheduleDays
+   VALUES('SQ87','2018-05-08','','')
+3)INSERT INTO SheduleDays
+   VALUES('SQ88','2018-05-08','','')
+4)INSERT INTO SheduleDays
+   VALUES('SQ67','2018-05-10','','')
+5)INSERT INTO SheduleDays
+   VALUES('9W665','2018-05-12','','')
+
+
+1)INSERT INTO Pilot
+   VALUES('98765A','','','','','','','','','',,'','')
+2)INSERT INTO Pilot
+   VALUES('87654B','','','','','','','','','',,'','')
+3)INSERT INTO Pilot
+   VALUES('76543A','','','','','','','','','',,'','')
+4)INSERT INTO Pilot
+   VALUES('65432B','','','','','','','','','',,'','')
+5)INSERT INTO Pilot
+   VALUES('54321A','','','','','','','','','',,'','')
+
+1)INSERT INTO PilotFlownAircrafts
+   VALUES('98765A','A7-HJH',1000)
+2)INSERT INTO PilotFlownAircrafts
+   VALUES('87654B','4R-KJH',1200)
+3)INSERT INTO PilotFlownAircrafts
+   VALUES('65432B','4R-SDD',1050)
+4)INSERT INTO PilotFlownAircrafts
+   VALUES('76543A','A7-HJH',1560)
+5)INSERT INTO PilotFlownAircrafts
+   VALUES('54321A','4RKJH',1420)
+
+1)INSERT INTO FlightAttendant
+   VALUES('15555A','Smith','Mendis','P0987654','356 Center St','Male','1900-01-10','2010-02-02','','1300',1,'UL')
+2)INSERT INTO FlightAttendant
+   VALUES('24444B','Paul','Shawn','P1876543','345 Main St','Male','1900-01-10','2010-02-09','','1200',4,'EK')
+3)INSERT INTO FlightAttendant
+   VALUES('33355B','Harry','Parker','P2765432','678 Main St','Male','1900-01-10','2010-02-10','','1300',5,'9W')
+4)INSERT INTO FlightAttendant
+   VALUES('91234A','Messy','Lousifer','P3098765','1234 B Blue Gun ST','Male','1900-01-10','2010-02-23','','1500',1,9W'')
+5)INSERT INTO FlightAttendant
+   VALUES('78912B','Tony','Binz','P4654321','34 C Blue Gun ST','Male','1900-01-10','2010-02-25','','1700',3,'QR')
+
+1)INSERT INTO SpecialRequirements
+   VALUES('P9854236','Meet and Assist')
+2)INSERT INTO SpecialRequirements
+   VALUES('P9712346','Requires wheelchair')
+3)INSERT INTO SpecialRequirements
+   VALUES('P9513572','Meet and Assist')
+4)INSERT INTO SpecialRequirements
+   VALUES('P4366918','Meet and Assist')
+5)INSERT INTO SpecialRequirements
+   VALUES('P1568468','Requires wheelchair')
+
+1)INSERT INTO Minor
+   VALUES('P9513680','P1568469')
+2)INSERT INTO Minor
+   VALUES('P9516789','P4366910')
+3)INSERT INTO Minor
+   VALUES('P9584240','P9854250')
+4)INSERT INTO Minor
+   VALUES('P9715046','P4802346')
+5)INSERT INTO Minor
+   VALUES('P7123461','P0971346')
+
+1)INSERT INTO PilotContactNo
+   VALUES('98765A','0713122657')
+2)INSERT INTO PilotContactNo
+   VALUES('54321A','0789002089')
+3)INSERT INTO PilotContactNo
+   VALUES('76543A','0764567216')
+4)INSERT INTO PilotContactNo
+   VALUES('87654B','0782578265')
+5)INSERT INTO PilotContactNo
+   VALUES('87654B','0715692543')
+
+1)INSERT INTO FlightAttendantContactNo
+   VALUES('24444B','0718934567')
+2)INSERT INTO FlightAttendantContactNo
+   VALUES('24444B','0756789345')
+3)INSERT INTO FlightAttendantContactNo
+   VALUES('15555A','0789561345')
+4)INSERT INTO FlightAttendantContactNo
+   VALUES('91234A','0704445621')
+5)INSERT INTO FlightAttendantContactNo
+   VALUES('91234A','0715559032')
