@@ -1,0 +1,109 @@
+01)
+USE [FlightManagementSystem]
+GO
+/****** Object:  Trigger [dbo].[trg01]    Script Date: 12/31/2018 4:38:53 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Create date: <2018.12.31>
+-- Description:	<Set the actual time when trigger fired>
+-- =============================================
+ALTER trigger [dbo].[trg01]
+on [dbo].[Reservation]
+for insert, update
+as 
+begin
+   update Reservation
+   set CheckInTime = GETDATE()
+   where TicketNo in (select TicketNo from inserted)
+end   
+
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+02)
+USE [FlightManagementSystem]
+GO
+/****** Object:  Trigger [dbo].[trg02]    Script Date: 12/31/2018 5:45:17 PM ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+-- =============================================
+-- Description:	<Static values can't be updated>
+-- =============================================
+ALTER TRIGGER [dbo].[trg02] ON [dbo].[Passenger] 
+FOR UPDATE, INSERT
+AS
+	declare @passportno varchar(50);
+	declare @fname varchar(25);
+	declare @lname varchar(25);
+	declare @gender varchar(7);
+	declare @natinality varchar(50);
+	declare @dob date;
+	declare @passportissuedate date;
+	declare @passportexpirydate date;
+	declare @ticketno varchar(25) ;
+
+	select @passportno=i.PassportNo from inserted i;	
+	select @fname=i.FirstName from inserted i;	
+	select @lname=i.LastName from inserted i;
+	select @gender=i.Gender from inserted i;
+	select @natinality=i.Nationality from inserted i;
+	select @dob=i.DOB from inserted i;
+	select @passportissuedate=i.PassportIssueDate from inserted i;
+	select @passportexpirydate=i.PassportExpiryDate from inserted i;	
+	select @ticketno=i.TicketNo from inserted i;	
+
+	BEGIN
+		if INSERT(NOT(@gender= 'female'	OR @gender = 'male') OR (@gender= 'Female'	OR @gender = 'Male'))
+		begin
+			RAISERROR('Gender should be male or female',16,1);
+			ROLLBACK;
+		end
+		IF UPDATE(Gender)
+		BEGIN
+		ROLLBACK
+		RAISERROR('Changes column name not allowed', 16, 1);
+		END
+		IF UPDATE(PassportIssueDate)
+		BEGIN
+		ROLLBACK
+		RAISERROR('Changes column name not allowed', 16, 1);
+		END
+		IF UPDATE(PassportExpiryDate)
+		BEGIN
+		ROLLBACK
+		RAISERROR('Changes column name not allowed', 16, 1);
+		END
+		IF UPDATE(DOB)
+		BEGIN
+		ROLLBACK
+		RAISERROR('Changes column name not allowed', 16, 1);
+		END
+		IF UPDATE(PassportNo)
+		BEGIN
+		ROLLBACK
+		RAISERROR('Changes column name not allowed', 16, 1);
+		END
+		IF UPDATE(PassportNo)
+		BEGIN
+		ROLLBACK
+		RAISERROR('Changes column name not allowed', 16, 1);
+		END
+	END
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+03)
+CREATE TRIGGER safety 
+ON DATABASE 
+FOR DROP_TABLE, ALTER_TABLE 
+AS 
+   PRINT 'You must disable Trigger "safety" to drop or alter tables!' 
+   ROLLBACK
+;
+
+>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+
