@@ -1,0 +1,38 @@
+/*Stored Procedures*/
+
+/*01*/
+
+CREATE PROCEDURE CountSpecialRequirements
+@Requirement VARCHAR(50)
+AS
+BEGIN
+
+DECLARE @Total INT
+SELECT @Total =count(PassportNo) FROM SpecialRequirements
+WHERE RequirementDetails=@Requirement
+
+PRINT @Total
+END
+
+EXEC CountSpecialRequirements 'Requires wheelchair'
+EXEC CountSpecialRequirements 'Meet and Assist'
+
+
+/*02*/
+
+CREATE PROCEDURE FindPilots
+@Gender VARCHAR(5),
+@Designation VARCHAR(25)
+AS
+BEGIN
+
+SELECT StaffID ,LastName,Gender,Designation FROM Pilot
+WHERE Gender=@Gender AND
+Designation=@Designation
+
+END
+
+EXEC FindPilots 'Male','Captain'
+EXEC FindPilots 'Female','Captain'
+EXEC FindPilots 'Female','First Officer'
+EXEC FindPilots 'Male','First Officer'

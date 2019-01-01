@@ -582,6 +582,7 @@ INSERT INTO ProvideServices VALUES
 SELECT * FROM ProvideServices;
 select* from pilot
 select* from FlightAttendant;
+
 UPDATE Pilot set Designation='First Officer' where StaffID='34567A';
 UPDATE Pilot set Designation='First Officer' where StaffID='78912B';
 UPDATe FlightAttendant set Designation='Senior Flight Attendant';
@@ -591,6 +592,14 @@ UPDATE FlightAttendant set Designation='Junior Flight Attendant' where StaffID='
 UPDATE FlightAttendant set Designation='Junior Flight Attendant' where StaffID='12345A';
 UPDATE FlightAttendant set Designation='Junior Flight Attendant' where StaffID='23456B';
 UPDATE FlightAttendant set Designation='Junior Flight Attendant' where StaffID='78912B';
+
+update pilot set AirlineTrainingDetails='type rated for A320' where StaffID='54321A';
+update pilot set AirlineTrainingDetails='type rated for B747' where StaffID='65432B';
+update pilot set AirlineTrainingDetails='type rated for B737' where StaffID='76543A';
+update pilot set AirlineTrainingDetails='type rated for A330' where StaffID='87654B';
+update pilot set AcadamicEducationDetails='GCSE, Advanced Level';
+update FlightAttendant set AcadamicEducationDetails='GCSE, Advanced Level';
+update FlightAttendant set AirlineTrainingDetails='IATA/UFTAA Foundation';
 
 /*SELECT
     IC.COLUMN_NAME,
@@ -618,3 +627,108 @@ Drop column PassportNo
 Select * from Reservation
 
 drop table minor*/
+
+/*Stored Procedures*/
+
+/*01*/
+
+CREATE PROCEDURE CountSpecialRequirements
+@Requirement VARCHAR(50)
+AS
+BEGIN
+
+DECLARE @Total INT
+SELECT @Total =count(PassportNo) FROM SpecialRequirements
+WHERE RequirementDetails=@Requirement
+
+PRINT @Total
+END
+
+EXEC CountSpecialRequirements 'Requires wheelchair'
+EXEC CountSpecialRequirements 'Meet and Assist'
+
+
+/*02*/
+
+CREATE PROCEDURE FindPilots
+@Gender VARCHAR(5),
+@Designation VARCHAR(25)
+AS
+BEGIN
+
+SELECT StaffID ,LastName,Gender,Designation FROM Pilot
+WHERE Gender=@Gender AND
+Designation=@Designation
+
+END
+
+EXEC FindPilots 'Male','Captain'
+EXEC FindPilots 'Female','Captain'
+EXEC FindPilots 'Female','First Officer'
+EXEC FindPilots 'Male','First Officer'
+
+/*** User Define Functions***/
+
+/*01*/
+
+GO
+CREATE FUNCTION Get_Minor_Flight_Details (@PPNo varchar(50))
+RETURNS @Minor_Details TABLE(
+		M_PassportNo varchar(50),
+		M_TicketNo varchar(25), 
+		M_Name varchar(50),
+		M_Gender varchar(7), 
+		M_Nationality varchar(50), 
+		M_DOB date,
+		M_Class varchar(20),
+		M_SeatNo varchar(4),
+		M_CheckInTime time,
+		M_BaggageWeight float,
+		M_LegNo varchar(10))
+		
+AS
+	BEGIN
+		INSERT INTO @Minor_Details
+		SELECT p.PassportNo, p.TicketNo,CONCAT(p.FirstName,' ',p.LastName) ,p.Gender,p.Nationality,p.DOB,
+		r.class,r.SeatNo,r.CheckInTime,r.BaggageWeight,r.LegNo
+		FROM Passenger as p
+		JOIN Reservation as r
+		ON r.TicketNo = p.TicketNo
+		WHERE p.PassportNo = @PPNo
+		RETURN
+	END
+
+	SELECT * FROM Get_Minor_Flight_Details('P4168431')
+
+	select * from Minor
+
+
+
+/*02*/
+
+GO
+CREATE FUNCTION Get_Captain_Details (@ALCode varchar(5))
+RETURNS @Capt_Details TABLE(
+			StaffID varchar(25),
+			Captain_Name varchar(50),
+			PassportNo varchar(50),
+			Address varchar(100),
+			ContactNo varchar(10),
+			Gender varchar(7),
+			LegNo varchar(10),
+			TotalFlyingHours int,
+			AirlineName varchar(50)
+		)
+AS
+	BEGIN
+		INSERT INTO @Capt_Details
+		SELECT p.StaffID,CONCAT(p.FirstName,' ',p.LastName) ,p.PassportNo,p.Address,pcn.ContactNo,p.Gender,p.LegNo,p.TotalFlyingHours,a.AirlineName
+		FROM ((Pilot as p
+		INNER JOIN Airline as a
+		ON p.AirlineCode = a.AirlineCode) INNER JOIN PilotContactNo as pcn ON p.StaffID = pcn.StaffID)
+		WHERE (p.AirlineCode = @ALCode) AND (p.Designation LIKE '%Cap%')
+		RETURN
+	END
+
+	SELECT * FROM Get_Captain_Details('SQ')
+

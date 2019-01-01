@@ -1,0 +1,64 @@
+/*** User Define Functions***/
+
+/*01*/
+
+GO
+CREATE FUNCTION Get_Minor_Flight_Details (@PPNo varchar(50))
+RETURNS @Minor_Details TABLE(
+		M_PassportNo varchar(50),
+		M_TicketNo varchar(25), 
+		M_Name varchar(50),
+		M_Gender varchar(7), 
+		M_Nationality varchar(50), 
+		M_DOB date,
+		M_Class varchar(20),
+		M_SeatNo varchar(4),
+		M_CheckInTime time,
+		M_BaggageWeight float,
+		M_LegNo varchar(10))
+		
+AS
+	BEGIN
+		INSERT INTO @Minor_Details
+		SELECT p.PassportNo, p.TicketNo,CONCAT(p.FirstName,' ',p.LastName) ,p.Gender,p.Nationality,p.DOB,
+		r.class,r.SeatNo,r.CheckInTime,r.BaggageWeight,r.LegNo
+		FROM Passenger as p
+		JOIN Reservation as r
+		ON r.TicketNo = p.TicketNo
+		WHERE p.PassportNo = @PPNo
+		RETURN
+	END
+
+	SELECT * FROM Get_Minor_Flight_Details('P4168431')
+
+	select * from Minor
+
+
+
+/*02*/
+
+GO
+CREATE FUNCTION Get_Captain_Details (@ALCode varchar(5))
+RETURNS @Capt_Details TABLE(
+			StaffID varchar(25),
+			Captain_Name varchar(50),
+			PassportNo varchar(50),
+			Address varchar(100),
+			ContactNo varchar(10),
+			Gender varchar(7),
+			LegNo varchar(10),
+			TotalFlyingHours int,
+			AirlineName varchar(50)
+		)
+AS
+	BEGIN
+		INSERT INTO @Capt_Details
+		SELECT p.StaffID,CONCAT(p.FirstName,' ',p.LastName) ,p.PassportNo,p.Address,pcn.ContactNo,p.Gender,p.LegNo,p.TotalFlyingHours,a.AirlineName
+		FROM ((Pilot as p
+		INNER JOIN Airline as a
+		ON p.AirlineCode = a.AirlineCode) INNER JOIN PilotContactNo as pcn ON p.StaffID = pcn.StaffID)
+		WHERE (p.AirlineCode = @ALCode) AND (p.Designation LIKE '%Cap%')
+		RETURN
+	END
+
+	SELECT * FROM Get_Captain_Details('SQ')
